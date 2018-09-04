@@ -6,16 +6,13 @@ const MyContext = React.createContext('no value provided');
 function ContextUser({ directValue }) {
     return (
         <React.Fragment>
-
             <MyContext.Consumer>
                 {value => <div>Context value: <em>{value}</em></div>}
             </MyContext.Consumer>
-
             <div>
                 Direct value: <em>{directValue}</em>
             </div>
         </React.Fragment>
-
     )
 }
 
@@ -55,7 +52,7 @@ export default class PortalTester extends React.Component {
                         </PopoverBody>
                     </Popover>
                     <div>
-                        <h4>It should work right here, since its not a child of the popover</h4>                        
+                        <h4>It should work right here, since its not a child of the popover</h4>
                         <ContextUser directValue={this.state.value} />
                     </div>
                 </MyContext.Provider>
