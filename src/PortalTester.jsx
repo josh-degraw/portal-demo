@@ -3,12 +3,18 @@ import { Button, Popover, PopoverHeader, PopoverBody, Input, FormGroup, Label } 
 
 const MyContext = React.createContext('no value provided');
 
-function ContextUser() {
+function ContextUser({ directValue }) {
     return (
+        <React.Fragment>
 
-        <MyContext.Consumer>
-            {value => <span>Context value: <em>{value}</em></span>}
-        </MyContext.Consumer>
+            <MyContext.Consumer>
+                {value => <div>Context value: <em>{value}</em></div>}
+            </MyContext.Consumer>
+
+            <div>
+                Direct value: <em>{directValue}</em>
+            </div>
+        </React.Fragment>
 
     )
 }
@@ -42,16 +48,16 @@ export default class PortalTester extends React.Component {
                     </Button>
                 </FormGroup>
                 <MyContext.Provider value={this.state.value}>
-
-                    <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle} onClick={() => { }}>
+                    <Popover isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle} onClick={() => { }}>
                         <PopoverHeader>Values:</PopoverHeader>
                         <PopoverBody>
-                            <ContextUser />
-                            <div>
-                                Direct value: <em>{this.state.value}</em>
-                            </div>
+                            <ContextUser directValue={this.state.value} />
                         </PopoverBody>
                     </Popover>
+                    <div>
+                        <h4>It should work right here, since its not a child of the popover</h4>                        
+                        <ContextUser directValue={this.state.value} />
+                    </div>
                 </MyContext.Provider>
             </React.Fragment>
         );
